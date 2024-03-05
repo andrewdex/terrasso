@@ -2,7 +2,6 @@ import inquirer from "inquirer";
 import fs from "fs";
 import { exec } from "child_process";
 
-// Prompt for AWS SSO configuration details
 async function promptForConfigDetails() {
   const questions = [
     {
@@ -76,7 +75,6 @@ async function promptForConfigDetails() {
   return inquirer.prompt(questions);
 }
 
-// Append AWS SSO configuration to the AWS CLI config file
 async function appendConfigToFile(config) {
   const {
     profileName,
@@ -100,7 +98,6 @@ output = json
   console.log("AWS SSO configuration has been appended to ~/.aws/config.");
 }
 
-// Execute `aws sso login` command
 function runSSOLogin(profileName) {
   exec(`aws sso login --profile ${profileName}`, (error, stdout, stderr) => {
     if (error) {
@@ -112,7 +109,6 @@ function runSSOLogin(profileName) {
   });
 }
 
-// Verify if the user has successfully logged in to the authenticated profile
 function verifySSOLogin(profileName) {
   exec(
     `aws sts get-caller-identity --profile ${profileName}`,
@@ -128,7 +124,6 @@ function verifySSOLogin(profileName) {
   );
 }
 
-// Main function to run the CLI application
 async function main() {
   try {
     console.log("Welcome to AWS SSO CLI Configuration!");
@@ -140,5 +135,4 @@ async function main() {
   }
 }
 
-// Run the CLI application
 main();
